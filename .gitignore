@@ -133,4 +133,4 @@ dmypy.json
 twitch_config.py
 spotify_config.py
 
-# /logs/*.txt
+/logs/*.txt

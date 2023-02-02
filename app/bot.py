@@ -10,6 +10,7 @@ from twitchio.ext import commands, routines
 # Local Imports
 import app.config.twitch_config as twitch_config
 from app.cogs import admin, mod, sub, user
+from app.modules.obs import Obs
 
 
 class Twitchbot(commands.Bot):
@@ -33,19 +34,14 @@ class Twitchbot(commands.Bot):
         self.command_list = self.commands
         print(f'Logged in as | {self.nick}')
 
+
+        # # # Modules appear to be outdated method. Loading Cogs is the new fad now
+
         #Find Modules
         # for x in os.listdir(f'{os.path.dirname(os.path.abspath(__file__))}/cogs'):
         #     if x.endswith(".py"):
         #         file_name = x.removesuffix('.py')
         #         self.modules.append(file_name)
-        
-        try:
-            admin.Admin.prepare(self)
-            mod.Mod.prepare(self)
-            sub.Sub.prepare(self)
-            user.User.prepare(self)
-        except:
-            logging.warning("Modules were not loaded correctly")
 
         #Load Modules
         #for module in self.modules:
@@ -58,10 +54,22 @@ class Twitchbot(commands.Bot):
 
 
 
-        # try:
-        #     Obs.connect()
-        # except:
-        #     print("Obs failed to load")
+        #Loading Cogs
+        try:
+            admin.Admin.prepare(self)
+            mod.Mod.prepare(self)
+            sub.Sub.prepare(self)
+            user.User.prepare(self)
+        except:
+            logging.warning("Modules were not loaded correctly")
+
+
+        #Loading OBS
+        try:
+            Obs.connect()
+            print('OBS Connected')
+        except:
+            logging.warning("Obs failed to load")
 
 
     async def event_message(self, message):

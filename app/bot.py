@@ -11,6 +11,7 @@ from twitchio.ext import commands, routines
 import app.config.twitch_config as twitch_config
 from app.cogs import admin, mod, sub, user
 from app.modules.obs import Obs
+from app.modules.spotify import Sp
 
 
 class Twitchbot(commands.Bot):
@@ -60,6 +61,7 @@ class Twitchbot(commands.Bot):
             mod.Mod.prepare(self)
             sub.Sub.prepare(self)
             user.User.prepare(self)
+            print('STATUS: Cogs Loading')
         except:
             logging.warning("Modules were not loaded correctly")
 
@@ -67,9 +69,16 @@ class Twitchbot(commands.Bot):
         #Loading OBS
         try:
             Obs.connect()
-            print('OBS Connected')
+            print('STATUS: OBS Connected')
         except:
             logging.warning("Obs failed to load")
+
+
+        try:
+            spotify = Sp()
+            print('STATUS: Spotify Connected')
+        except:
+            logging.warning('Spotify failed to load')
 
 
     async def event_message(self, message):

@@ -12,7 +12,10 @@ class Admin(commands.Cog):
         else:
             await ctx.send("Only Admins can use this command")
 
-
-
     def prepare(bot: commands.Bot):
             bot.add_cog(Admin(bot))
+
+
+    @commands.command(name = "admintest")
+    async def admintest(self, ctx):
+        await ctx.send("Hello Admin!")

@@ -11,6 +11,7 @@ from twitchio.ext import commands, routines
 import app.config.twitch_config as twitch_config
 from app.cogs import admin, mod, sub, user
 from app.modules.obs import Obs
+from app.modules import pubsub
 
 
 class Twitchbot(commands.Bot):
@@ -87,17 +88,31 @@ class Twitchbot(commands.Bot):
             logging.warning('TTS failed to load')
 
 
+        # try:
+        #     await pubsub.start()
+        #     print('STATUS: Pubsub loop started')
+        # except:
+        #     logging.warning('Pubsub failed to start')
+
+
     async def event_message(self, message):
+        # if message.author.name.lower() != self.nick.lower():
         try:
-            # - Logging 
-            a = (f"{message.timestamp} - {message.author.name} - {message.content}")
-            b = (f"{message.author.name} - {message.content}")
-            print(a)
-        except (AttributeError):
+            await self.handle_commands(message)
+        except(AssertionError):
             pass
+        # try:
+        #     # - Logging 
+        #     a = (f"{message.timestamp} - {message.author.name} - {message.content}")
+        #     b = (f"{message.author.name} - {message.content}")
+        #     print(a)
+        # except (AttributeError):
+        #     pass
 
 
 
+    async def event_join(self, channel, user):
+        print(f"{user.name} joined.")
 
 
 

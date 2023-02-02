@@ -11,7 +11,6 @@ from twitchio.ext import commands, routines
 import app.config.twitch_config as twitch_config
 from app.cogs import admin, mod, sub, user
 from app.modules.obs import Obs
-from app.modules.spotify import Sp
 
 
 class Twitchbot(commands.Bot):
@@ -75,10 +74,17 @@ class Twitchbot(commands.Bot):
 
 
         try:
-            spotify = Sp()
+            #spotify = Sp()
             print('STATUS: Spotify Connected')
         except:
             logging.warning('Spotify failed to load')
+
+
+        try:
+            #tts = Tts()
+            print('STATUS: TTS Connected')
+        except:
+            logging.warning('TTS failed to load')
 
 
     async def event_message(self, message):
@@ -91,6 +97,26 @@ class Twitchbot(commands.Bot):
             pass
 
 
+
+
+
+
+    #ChatGuessr Commands
     @commands.command(name="cg")
     async def cg_command(self, ctx: commands.bot.Context):
+        pass
+
+
+    @commands.command(name="me")
+    async def me_command(self, ctx: commands.bot.Context):
+        pass
+
+
+    @commands.command(name="best")
+    async def best_command(self, ctx: commands.bot.Context):
+        pass
+
+
+    @commands.command(name="flag")
+    async def flag_command(self, ctx: commands.bot.Context):
         pass

@@ -15,3 +15,8 @@ class Mod(commands.Cog):
 
     def prepare(bot: commands.Bot):
             bot.add_cog(Mod(bot))
+
+
+    @commands.command(name = "modtest")
+    async def admintest(self, ctx):
+        await ctx.send("Hello Mod!")

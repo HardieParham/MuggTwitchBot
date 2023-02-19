@@ -8,6 +8,15 @@ if __name__ == "__main__":
 
 
 
+# Completed
+#
+# 
+# 
+# 
+# 
+
+
+
 # Todo List
 # Cogs, basic commands
 # Users joining

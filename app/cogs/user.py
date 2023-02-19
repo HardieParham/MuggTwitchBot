@@ -18,6 +18,15 @@ class User(commands.Cog):
             bot.add_cog(User(bot))
 
 
+    @commands.command(name = "test")
+    async def admintest(self, ctx):
+        await ctx.send("Hello There!")
+
+
+
+
+
+    # General Commands
     @commands.command(name = "commands", aliases=["commandlist", "help", "idk"])
     async def commandlist(self, ctx):
         keys = self.command_list.keys()
@@ -44,3 +53,32 @@ class User(commands.Cog):
         #sp.song()
         await ctx.send(spotify.song())
         print("worked")
+
+
+
+
+
+
+
+
+
+
+    #ChatGuessr Commands
+    @commands.command(name="cg")
+    async def cg_command(self, ctx: commands.bot.Context):
+        pass
+
+
+    @commands.command(name="me")
+    async def me_command(self, ctx: commands.bot.Context):
+        pass
+
+
+    @commands.command(name="best")
+    async def best_command(self, ctx: commands.bot.Context):
+        pass
+
+
+    @commands.command(name="flag")
+    async def flag_command(self, ctx: commands.bot.Context):
+        pass

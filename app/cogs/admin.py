@@ -19,3 +19,10 @@ class Admin(commands.Cog):
     @commands.command(name = "admintest")
     async def admintest(self, ctx):
         await ctx.send("Hello Admin!")
+
+
+# TODO
+# OBS Controls
+# Spotify Controls
+# TTS Controls
+# Bot Controls

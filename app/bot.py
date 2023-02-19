@@ -11,7 +11,7 @@ from twitchio.ext import commands, routines
 import app.config.twitch_config as twitch_config
 from app.cogs import admin, mod, sub, user
 from app.modules.obs import Obs
-from app.modules import pubsub
+from app.modules import pubsub, spotify
 
 
 class Twitchbot(commands.Bot):
@@ -61,7 +61,7 @@ class Twitchbot(commands.Bot):
             mod.Mod.prepare(self)
             sub.Sub.prepare(self)
             user.User.prepare(self)
-            print('STATUS: Cogs Loading')
+            print('STATUS: Cogs Loaded')
         except:
             logging.warning("Modules were not loaded correctly")
 
@@ -74,13 +74,15 @@ class Twitchbot(commands.Bot):
             logging.warning("Obs failed to load")
 
 
+        #Loading Spotify
         try:
-            #spotify = Sp()
+            spotify.connect()
             print('STATUS: Spotify Connected')
         except:
             logging.warning('Spotify failed to load')
 
 
+        #Loading TTS
         try:
             #tts = Tts()
             print('STATUS: TTS Connected')
@@ -96,42 +98,37 @@ class Twitchbot(commands.Bot):
 
 
     async def event_message(self, message):
-        # if message.author.name.lower() != self.nick.lower():
-        try:
-            await self.handle_commands(message)
-        except(AssertionError):
+
+        if message.echo == True:
             pass
-        # try:
-        #     # - Logging 
-        #     a = (f"{message.timestamp} - {message.author.name} - {message.content}")
-        #     b = (f"{message.author.name} - {message.content}")
-        #     print(a)
-        # except (AttributeError):
-        #     pass
+
+        else:
+            # if message.author.name.lower() != self.nick.lower():
+
+            data = [
+            message.author,
+            message.channel,
+            message.content,
+            message.echo,
+            message.first,
+            message.id,
+            message.raw_data,
+            message.tags,
+            message.timestamp,
+            ]
+            for i in data:
+                print(i)
+
+            await self.handle_commands(message)
+            # try:
+            #     # - Logging 
+            #     a = (f"{message.timestamp} - {message.author.name} - {message.content}")
+            #     b = (f"{message.author.name} - {message.content}")
+            #     print(a)
+            # except (AttributeError):
+            #     pass
 
 
 
     async def event_join(self, channel, user):
         print(f"{user.name} joined.")
-
-
-
-    #ChatGuessr Commands
-    @commands.command(name="cg")
-    async def cg_command(self, ctx: commands.bot.Context):
-        pass
-
-
-    @commands.command(name="me")
-    async def me_command(self, ctx: commands.bot.Context):
-        pass
-
-
-    @commands.command(name="best")
-    async def best_command(self, ctx: commands.bot.Context):
-        pass
-
-
-    @commands.command(name="flag")
-    async def flag_command(self, ctx: commands.bot.Context):
-        pass

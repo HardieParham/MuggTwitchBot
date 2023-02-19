@@ -7,11 +7,16 @@ class Sub(commands.Cog):
         self.token = twitch_config.BOT_TOKEN,
 
     async def cog_check(self, ctx):
-        if ctx.message.author.is_mod == True:
+        if ctx.message.author.is_subscriber == True:
             return True
         else:
-            await ctx.send(f"Only Moderators can use this command.")
+            await ctx.send(f"Only Subscribers can use this command.")
 
 
     def prepare(bot: commands.Bot):
             bot.add_cog(Sub(bot))
+
+
+    @commands.command(name = "subtest")
+    async def admintest(self, ctx):
+        await ctx.send("Hello Sub!")

@@ -1,12 +1,7 @@
-# Standard Imports
-import logging
-
-# External Imports
+# - - - - - Spotipy Imports - - - - - -
 import spotipy as sp
-from spotipy.oauth2 import SpotifyOAuth
-
-# Local Imports
 from app.config import spotify_config
+from spotipy.oauth2 import SpotifyOAuth
 
 
 # - - - - - Applying Configuration Settings - - - - - 
@@ -27,7 +22,6 @@ auth_manager = SpotifyOAuth(
 # - - - - - Connecting to Spotify - - - - - 
 spotify = sp.Spotify(auth_manager = auth_manager)
 
-
 # - - - - - Finding Device Name - - - - - 
 devices = spotify.devices()
 deviceID=[]
@@ -47,7 +41,11 @@ def get_track_uri(spotify: sp.Spotify, artist, track) -> str:
     return track_uri
 
 
-
+def connect():
+    if spotify is not None:
+        return True
+    else:
+        raise Exception('ModuleFailure')
 
 
 

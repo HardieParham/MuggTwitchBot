@@ -11,8 +11,8 @@ volume = engine.getProperty('volume')
 
 
 ### Setting Properties
-engine.setProperty('rate', rate-35)
-engine.setProperty('volume', volume-0.25)
+engine.setProperty('rate', rate-15)
+engine.setProperty('volume', volume-0.10)
 voice_id = voices[1].id
 engine.setProperty('voice', voice_id)
 
@@ -27,6 +27,11 @@ def connect():
 def speak(str):
    engine.say(str)
    engine.runAndWait()
+
+
+def set_volume(num):
+   new_volume = num/100
+   engine.setProperty('volume', new_volume)
 
 
 # if __name__ == "__main__":

@@ -70,7 +70,7 @@ class Admin(commands.Cog):
     @commands.command(name = "spvolume")
     async def set_spotify_volume(self, ctx):
         volume=int(ctx.view.words[1])
-        if volume > 0 and volume < 100:
+        if volume > 0 and volume < 101:
             spotify.set_volume(volume)
             await ctx.send(f"Spotify volume has been set to {volume}%.")
         
@@ -84,6 +84,15 @@ class Admin(commands.Cog):
         q = ctx.message.content[4:]
         tts.speak(q)
 
-# TODO
-# TTS Controls
-# Bot Controls
+
+    @commands.command(name = "ttsvolume")
+    async def set_tts_volume(self, ctx):
+        volume=int(ctx.view.words[1])
+        if volume > 0 and volume < 101:
+            tts.set_volume(volume)
+            await ctx.send(f"tts volume has been set to {volume}%.")
+        
+        else:
+            await ctx.send(f"Please specify a number between 0 and 100.")
+
+

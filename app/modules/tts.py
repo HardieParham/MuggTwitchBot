@@ -17,6 +17,12 @@ voice_id = voices[1].id
 engine.setProperty('voice', voice_id)
 
 
+def connect():
+   if engine is not None:
+        return True
+   else:
+      raise Exception('ModuleFailure')
+
 
 def speak(str):
    engine.say(str)

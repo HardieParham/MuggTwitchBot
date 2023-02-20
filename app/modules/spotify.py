@@ -41,6 +41,7 @@ def get_track_uri(spotify: sp.Spotify, artist, track) -> str:
     return track_uri
 
 
+# - - - - - Check if Spotify is connected - - - - - 
 def connect():
     if spotify is not None:
         return True
@@ -71,6 +72,59 @@ def song():
 
     return string
 
-    # info = spotify.current_user_playing_track()
-    # track_name = 
-    # print(f"{track_name}")
+
+def artist():
+    current = spotify.currently_playing()
+    artist_id = current['item']['album']['artists'][0]['id']
+    artist = spotify.artist(artist_id)
+    list = spotify.artist_top_tracks(artist_id)
+
+    def song(id):
+        song = list['tracks'][int(id)]['name']
+        return song
+
+    text = f"ARTIST: {artist['name']}. TOP SONGS: 1. {song(0)} 2. {song(1)} 3. {song(2)} 4. {song(3)} 5. {song(4)}"
+
+    return text
+
+
+def song_link():
+    current = spotify.currently_playing()
+    song_link = current['item']['external_urls']['spotify'] 
+    return song_link
+
+
+def song_queue():
+    list = spotify.queue()
+    num = int(len(list['queue']))
+    print(num)
+    
+    def track(id):
+        artist = list['queue'][int(id)]['album']['artists'][0]['name']
+        song = list['queue'][int(id)]['name']
+        return f"'{song}' by {artist}"
+
+    if num == 0:
+        text = 'There are no songs in the queue'
+        return text
+
+    elif num > 0 and num < 5:
+        id = 0
+        text = ''
+        while id < num:
+            text += f"{id+1}: {track(id)}. "
+            id += 1
+        return text
+
+    else:
+        id = 0
+        text = ''
+        while id < 5:
+            text += f"{id+1}: {track(id)}. "
+            id += 1
+        text += f"and {num-id} more..."
+        return text
+
+
+def set_volume(num):
+    spotify.volume(num)

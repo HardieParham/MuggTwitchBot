@@ -10,8 +10,8 @@ from twitchio.ext import commands, routines
 # Local Imports
 import app.config.twitch_config as twitch_config
 from app.cogs import admin, mod, sub, user
-from app.modules.obs import Obs
-from app.modules import pubsub, spotify
+#from app.modules.obs import Obs
+from app.modules import pubsub, spotify, tts, obs
 
 
 class Twitchbot(commands.Bot):
@@ -68,7 +68,7 @@ class Twitchbot(commands.Bot):
 
         #Loading OBS
         try:
-            Obs.connect()
+            obs.connect()
             print('STATUS: OBS Connected')
         except:
             logging.warning("Obs failed to load")
@@ -84,7 +84,7 @@ class Twitchbot(commands.Bot):
 
         #Loading TTS
         try:
-            #tts = Tts()
+            tts.connect()
             print('STATUS: TTS Connected')
         except:
             logging.warning('TTS failed to load')

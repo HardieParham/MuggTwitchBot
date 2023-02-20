@@ -1,4 +1,12 @@
+# Standard Imports
+import logging
+
+# External Imports
 from twitchio.ext import commands
+
+# Local Imports
+#from app.modules.obs import Obs
+from app.modules import spotify, tts, obs
 
 
 class Admin(commands.Cog):
@@ -21,8 +29,61 @@ class Admin(commands.Cog):
         await ctx.send("Hello Admin!")
 
 
+    @commands.command(name = "reconnect")
+    async def reconnect(self, ctx):
+        try:
+            obs.reconnect()
+            await ctx.send("Reconnected OBS.")
+        except:
+            logging.warning('OBS failed to reconnect')
+            await ctx.send("OBS failed to reconnect.")
+
+
+    @commands.command(name = "disconnect")
+    async def disconnect(self, ctx):
+        try:
+            obs.disconnect()
+            await ctx.send("Disconnected OBS.")
+        except:
+            logging.warning('OBS failed to disconnect')
+            await ctx.send("OBS failed to disconnect.")
+
+
+    @commands.command(name = "artist")
+    async def artist(self, ctx):
+        text = spotify.artist()
+        await ctx.send(f"{text}")
+
+
+    @commands.command(name = "songlink")
+    async def song_link(self, ctx):
+        text = spotify.song_link()
+        await ctx.send(f"{text}")
+
+
+    @commands.command(name = "queue", aliases=['q',])
+    async def song_queue(self, ctx):
+        text = spotify.song_queue()
+        await ctx.send(f"{text}")
+
+
+    @commands.command(name = "spvolume")
+    async def set_spotify_volume(self, ctx):
+        volume=int(ctx.view.words[1])
+        if volume > 0 and volume < 100:
+            spotify.set_volume(volume)
+            await ctx.send(f"Spotify volume has been set to {volume}%.")
+        
+        else:
+            await ctx.send(f"Please specify a number between 0 and 100.")
+
+
+
+    @commands.command(name = "say")
+    async def say(self, ctx):
+        q = ctx.message.content[4:]
+        tts.speak(q)
+
 # TODO
-# OBS Controls
-# Spotify Controls
 # TTS Controls
 # Bot Controls

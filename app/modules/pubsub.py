@@ -10,8 +10,8 @@ from obswebsocket import obsws, events, requests
 
 # Local Imports
 from app.config import twitch_config
-from app.modules.obs import Obs
-from app.modules import spotify, tts
+#from app.modules.obs import Obs
+from app.modules import spotify, tts, obs
 from app.cogs.sub import Sub
 #from playsound import playsound
 
@@ -58,9 +58,9 @@ async def event_pubsub_channel_points(event: pubsub.PubSubChannelPointsMessage):
 
     elif event.reward.title == "TTS":
         q = event.input
-        Obs.ws.call(requests.SetSceneItemProperties(item='Spotify', visible=False))
+        obs.ws.call(requests.SetSceneItemProperties(item='Spotify', visible=False))
         tts.speak(q)
-        Obs.ws.call(requests.SetSceneItemProperties(item='Spotify', visible=True))
+        obs.ws.call(requests.SetSceneItemProperties(item='Spotify', visible=True))
 
 
     # elif event.reward.title == "Dab":
@@ -85,11 +85,11 @@ async def event_pubsub_channel_points(event: pubsub.PubSubChannelPointsMessage):
 
 
     elif event.reward.title == "Noot":
-        Obs.ws.call(requests.SetSceneItemProperties(item='Spotify', visible=False))
-        Obs.ws.call(requests.SetSceneItemProperties(item='Noot', visible=True))
+        obs.ws.call(requests.SetSceneItemProperties(item='Spotify', visible=False))
+        obs.ws.call(requests.SetSceneItemProperties(item='Noot', visible=True))
         time.sleep(9)
-        Obs.ws.call(requests.SetSceneItemProperties(item='Noot', visible=False))
-        Obs.ws.call(requests.SetSceneItemProperties(item='Spotify', visible=True))
+        obs.ws.call(requests.SetSceneItemProperties(item='Noot', visible=False))
+        obs.ws.call(requests.SetSceneItemProperties(item='Spotify', visible=True))
 
     # elif event.reward.title == "Pizza":
     #     Obs.ws.call(requests.SetSceneItemProperties(item='Spotify', visible=False))

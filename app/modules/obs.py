@@ -7,21 +7,20 @@ from obswebsocket import obsws, events, requests
 
 
 # Connecting to OBS
-class Obs():
-    logging.basicConfig(level=logging.INFO)
-    sys.path.append('../')
+logging.basicConfig(level=logging.INFO)
+sys.path.append('../')
 
-    host = "localhost"
-    port = 4444
-    password = "secret"
+host = "localhost"
+port = 4444
+password = "secret"
 
-    ws = obsws(host, port, password)
+ws = obsws(host, port, password)
 
-    def connect():
-        Obs.ws.connect()
+def connect():
+    ws.connect()
 
-    def disconnect():
-        Obs.ws.disconnect()
+def disconnect():
+    ws.disconnect()
 
-    def reconnect():
-        Obs.ws.reconnect()
+def reconnect():
+    ws.reconnect()

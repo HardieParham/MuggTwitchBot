@@ -8,17 +8,10 @@ if __name__ == "__main__":
 
 
 
-# Completed
-#
-# 
-# 
-# 
-# 
 
-
-
-# Todo List
-# Cogs, basic commands
+# TODO List
+# Basic commands
+# Fix Follower Cog
 # Users joining
 # Users leaving?
 # Message Handleing
@@ -30,3 +23,4 @@ if __name__ == "__main__":
 # Eventsub?
 # Sounds
 # Cooldowns
+# Emotes

@@ -2,6 +2,7 @@
 # Standard Imports
 import logging
 import os
+import csv
 
 # External Imports
 import twitchio
@@ -9,8 +10,7 @@ from twitchio.ext import commands, routines
 
 # Local Imports
 import app.config.twitch_config as twitch_config
-from app.cogs import admin, mod, sub, user
-#from app.modules.obs import Obs
+from app.cogs import admin, mod, vip, sub, follower, user
 from app.modules import pubsub, spotify, tts, obs
 
 
@@ -37,29 +37,13 @@ class Twitchbot(commands.Bot):
 
 
         # # # Modules appear to be outdated method. Loading Cogs is the new fad now
-
-        #Find Modules
-        # for x in os.listdir(f'{os.path.dirname(os.path.abspath(__file__))}/cogs'):
-        #     if x.endswith(".py"):
-        #         file_name = x.removesuffix('.py')
-        #         self.modules.append(file_name)
-
-        #Load Modules
-        #for module in self.modules:
-            #try:
-                #file = str(f'./cogs/{module}')
-                #self.load_module(file)
-                #print("User cog has been loaded.")
-            #except:
-                #logging.warning(f"{module} module was not loaded correctly")
-
-
-
         #Loading Cogs
         try:
             admin.Admin.prepare(self)
             mod.Mod.prepare(self)
+            vip.Vip.prepare(self)
             sub.Sub.prepare(self)
+            follower.Follower.prepare(self)
             user.User.prepare(self)
             print('STATUS: Cogs Loaded')
         except:
@@ -103,8 +87,6 @@ class Twitchbot(commands.Bot):
             pass
 
         else:
-            # if message.author.name.lower() != self.nick.lower():
-
             data = [
             message.author,
             message.channel,
@@ -116,8 +98,13 @@ class Twitchbot(commands.Bot):
             message.tags,
             message.timestamp,
             ]
+
             for i in data:
                 print(i)
+
+            # new = message.raw_data.split(';')
+            # for i in new:
+            #     print(i)
 
             await self.handle_commands(message)
             # try:

@@ -155,3 +155,44 @@ class Admin(commands.Cog):
     @commands.command(name="flag")
     async def flag_command(self, ctx: commands.bot.Context):
         pass
+
+
+
+# Active Extensions
+# Ban, Userban
+# Ban Event
+# Bits Leaderboard
+# Channel Emote
+# Channel Info
+# Chat Settings
+# Chatter
+# Clip, Video
+# Custom Reward, redemption
+# Follow Event
+# Game
+# Global Emote
+# Goal
+# Hype Train: Contribution, Event
+# Poll
+# Predictions
+# SearchUser
+# Stream
+# Subscription Event
+# Timeout
+#
+# User ->
+# 
+# add mod, add vip, and remove
+# ban user
+# announcement?
+# create clip, poll, prediction
+# edit channel description
+# fetch followers, followercount
+# fetch clips
+# follow
+# modify stream
+# shoutout
+# start commercial
+# timeout user
+# 
+#  #

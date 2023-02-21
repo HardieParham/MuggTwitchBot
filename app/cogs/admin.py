@@ -3,6 +3,7 @@ import logging
 
 # External Imports
 from twitchio.ext import commands
+from twitchio import Channel, User, Client
 
 # Local Imports
 #from app.modules.obs import Obs
@@ -29,6 +30,8 @@ class Admin(commands.Cog):
         await ctx.send("Hello Admin!")
 
 
+
+    # OBS Commands
     @commands.command(name = "reconnect")
     async def reconnect(self, ctx):
         try:
@@ -47,6 +50,34 @@ class Admin(commands.Cog):
         except:
             logging.warning('OBS failed to disconnect')
             await ctx.send("OBS failed to disconnect.")
+
+
+
+    # Spotify Commands
+    @commands.command(name = "sr")
+    async def sr(self, ctx):
+        query = ctx.message.content[3:]
+        
+        spotify.sp_search(query)
+        await ctx.send(f"song added to queue!")
+
+
+    @commands.command(name = "skip")
+    async def skip(self, ctx):
+        spotify.skip()
+        await ctx.send(f"Song skipped!")
+
+
+    @commands.command(name = "previous")
+    async def previous(self, ctx):
+        spotify.previous()
+        await ctx.send(f"Reeling it back.")
+
+
+
+    @commands.command(name = "song")
+    async def song(self, ctx):
+        await ctx.send(spotify.song())
 
 
     @commands.command(name = "artist")
@@ -79,6 +110,9 @@ class Admin(commands.Cog):
 
 
 
+
+
+    # TTS Commands
     @commands.command(name = "say")
     async def say(self, ctx):
         q = ctx.message.content[4:]
@@ -121,19 +155,6 @@ class Admin(commands.Cog):
         await ctx.send(f"CPU: Intel i7-8700.           GPU: MSI GTX 1060 6GB.               RAM: 32GB (4x8).            HDD: 4TB HHD, 2-256GB SSD")
 
 
-    @commands.command(name = "song")
-    async def song(self, ctx):
-        #sp.song()
-        await ctx.send(spotify.song())
-        print("worked")
-
-
-
-
-
-
-
-
 
 
     #ChatGuessr Commands
@@ -155,6 +176,28 @@ class Admin(commands.Cog):
     @commands.command(name="flag")
     async def flag_command(self, ctx: commands.bot.Context):
         pass
+
+
+
+
+    # Twitchio Commands TODO
+    # @commands.command(name="addmod")
+    # async def add_mod(self, ctx):
+    #     for word in ctx.view.words:
+    #         if ctx.view.words[word][0] == '@':
+    #             so_user = ctx.view.words[word][1:]
+    #             break
+    #     await ctx.send(f"Check out {so_user} at www.twitch.tv/{so_user} ")
+
+
+    # @commands.command(name="so")
+    # async def shoutout(self, ctx):
+    #     for word in ctx.view.words:
+    #         if ctx.view.words[word][0] == '@':
+    #             so_username = ctx.view.words[word][1:]
+    #             break
+    #     so_user = commands.Bot.get_channel(so_username)
+    #     await ctx.send(f"Check out {so_user} at www.twitch.tv/{so_user} ")
 
 
 

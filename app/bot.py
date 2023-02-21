@@ -1,4 +1,3 @@
-
 # Standard Imports
 import logging
 import os
@@ -74,47 +73,32 @@ class Twitchbot(commands.Bot):
             logging.warning('TTS failed to load')
 
 
-        # try:
-        #     await pubsub.start()
-        #     print('STATUS: Pubsub loop started')
-        # except:
-        #     logging.warning('Pubsub failed to start')
+        #try:
+        await pubsub.start()
+        print('STATUS: Pubsub loop started')
+        #except:
+            #logging.warning('Pubsub failed to start')
 
 
     async def event_message(self, message):
 
-        if message.echo == True:
-            pass
-
-        else:
-            data = [
-            message.author,
-            message.channel,
-            message.content,
-            message.echo,
-            message.first,
-            message.id,
-            message.raw_data,
-            message.tags,
-            message.timestamp,
-            ]
-
-            for i in data:
-                print(i)
-
-            # new = message.raw_data.split(';')
-            # for i in new:
-            #     print(i)
-
-            await self.handle_commands(message)
-            # try:
-            #     # - Logging 
-            #     a = (f"{message.timestamp} - {message.author.name} - {message.content}")
-            #     b = (f"{message.author.name} - {message.content}")
-            #     print(a)
-            # except (AttributeError):
-            #     pass
-
+        if message.echo != True:
+            print('message recieved')
+        #     data = [
+        #     message.author,
+        #     message.channel,
+        #     message.content,
+        #     message.echo,
+        #     message.first,
+        #     message.id,
+        #     message.raw_data,
+        #     message.tags,
+        #     message.timestamp,
+        #     ]
+        #     for i in data:
+        #         print(i)
+            if message.content[0] == self._prefix:
+                await self.handle_commands(message)
 
 
     async def event_join(self, channel, user):

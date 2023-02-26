@@ -27,7 +27,11 @@ async def event_pubsub_channel_points(event: pubsub.PubSubChannelPointsMessage):
 
 
 
-
+# Bits
+# Bits Badge
+# Channel Points
+# Channel Subscriptions
+# Moderation User Action
 
 
 

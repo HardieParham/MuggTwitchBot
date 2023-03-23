@@ -16,6 +16,8 @@ password = "secret"
 
 ws = obsws(host, port, password)
 
+# Refer to OBS WEbsocket documentation for all the ws functions
+
 def connect():
     ws.connect()
 

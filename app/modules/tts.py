@@ -11,8 +11,8 @@ volume = engine.getProperty('volume')
 
 
 ### Setting Properties
-engine.setProperty('rate', rate-15)
-engine.setProperty('volume', volume-0.10)
+engine.setProperty('rate', rate-20)
+engine.setProperty('volume', volume-0.05)
 voice_id = voices[1].id
 engine.setProperty('voice', voice_id)
 

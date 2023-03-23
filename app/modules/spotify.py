@@ -52,8 +52,14 @@ def connect():
 
 # - - - - - Spotify Commands - - - - - 
 def play(artist, track):
+    tries = 0
     device_id = deviceID
-    uri = get_track_uri(spotify=spotify, artist=artist, track=track)
+    while tries < 5:
+        try:
+            uri = get_track_uri(spotify=spotify, artist=artist, track=track)
+            break
+        except:
+            tries += 1
     spotify.add_to_queue(uri, device_id=device_id)
 
 

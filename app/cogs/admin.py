@@ -1,9 +1,11 @@
 # Standard Imports
 import logging
+import time
 
 # External Imports
 from twitchio.ext import commands
 from twitchio import Channel, User, Client
+from obswebsocket import requests
 
 # Local Imports
 #from app.modules.obs import Obs
@@ -54,7 +56,13 @@ class Admin(commands.Cog):
 
 
 
-
+    @commands.command(name = "finland2")
+    async def test_finland(self, ctx):
+        ws.call(requests.SetSceneItemProperties(item='Spotify', visible=False))
+        ws.call(requests.SetSceneItemProperties(item='Finland', visible=True))
+        time.sleep(2)
+        ws.call(requests.SetSceneItemProperties(item='Finland', visible=False))
+        ws.call(requests.SetSceneItemProperties(item='Spotify', visible=True))
 
 
     # Twitchio Commands TODO

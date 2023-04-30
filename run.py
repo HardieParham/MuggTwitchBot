@@ -10,16 +10,16 @@ if __name__ == "__main__":
 
 
 # TODO List
-# Basic commands
-# Fix Follower Cog
-# Users joining
-# Users leaving?
-# Message Handleing
+# DONE Basic commands
+# DONE Fix Follower Cog
+# DONE Users joining
+# DONE Users leaving?
+# DONE Message Handling
+# DONE Loading Lists (follower list)
+# DONE PubSub
 # Message Logging
 # User DB
 # OBS-specific Commands
-# Loading Lists (follower list)
-# PubSub
 # Eventsub?
 # Sounds
 # Cooldowns

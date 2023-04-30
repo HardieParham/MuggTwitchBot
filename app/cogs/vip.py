@@ -1,5 +1,11 @@
+import time
+
 from twitchio.ext import commands
+from obswebsocket import requests
+
 from app.config import twitch_config
+from ..modules.obs import ws
+
 
 class Vip(commands.Cog):
     def __init__(self, bot: commands.Bot):
@@ -20,3 +26,12 @@ class Vip(commands.Cog):
     @commands.command(name = "viptest")
     async def admintest(self, ctx):
         await ctx.send("Hello VIP!")
+
+
+    @commands.command(name = "finland")
+    async def finland(self, ctx):
+        ws.call(requests.SetSceneItemProperties(item='Spotify', visible=False))
+        ws.call(requests.SetSceneItemProperties(item='Finland', visible=True))
+        time.sleep(2)
+        ws.call(requests.SetSceneItemProperties(item='Finland', visible=False))
+        ws.call(requests.SetSceneItemProperties(item='Spotify', visible=True))

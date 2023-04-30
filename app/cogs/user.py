@@ -1,9 +1,11 @@
 # Standard Imports
 import logging
+import time
 
 # External Imports
 from twitchio.ext import commands
 from twitchio import Channel, User, Client
+from obswebsocket import requests
 
 # Local Imports
 #from app.modules.obs import Obs
@@ -146,3 +148,15 @@ class User(commands.Cog):
     @commands.command(name="flag")
     async def flag_command(self, ctx: commands.bot.Context):
         pass
+
+
+
+
+
+    @commands.command(name = "noot")
+    async def noot(self, ctx):
+        ws.call(requests.SetSceneItemProperties(item='Spotify', visible=False))
+        ws.call(requests.SetSceneItemProperties(item='Noot', visible=True))
+        time.sleep(9)
+        ws.call(requests.SetSceneItemProperties(item='Noot', visible=False))
+        ws.call(requests.SetSceneItemProperties(item='Spotify', visible=True))

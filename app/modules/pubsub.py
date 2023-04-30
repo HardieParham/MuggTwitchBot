@@ -1,12 +1,16 @@
 # Standard Imports
 import asyncio
+import time
 
 # External Imports
 import twitchio
 from twitchio.ext import pubsub
+from obswebsocket import requests
 
 # Local Imports
 import app.config.twitch_config as twitch_config
+import app.modules.spotify as spotify
+from app.modules.obs import ws
 
 
 my_token = twitch_config.BOT_TOKEN2
@@ -23,6 +27,15 @@ async def event_pubsub_channel_points(event: pubsub.PubSubChannelPointsMessage):
         print('Dab MF')
 
 
+    elif event.reward.title == "Spotify Song Request":
+        q = event.input
+        try:
+            spotify.sp_search(query=q)
+            print("sucess!")
+
+        except:
+            print('Spotify search failed')
+
 
 
 
@@ -32,16 +45,6 @@ async def event_pubsub_channel_points(event: pubsub.PubSubChannelPointsMessage):
 # Channel Points
 # Channel Subscriptions
 # Moderation User Action
-
-
-
-
-
-
-
-
-
-
 
 
 

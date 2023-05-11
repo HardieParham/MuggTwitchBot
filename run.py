@@ -9,7 +9,8 @@ if __name__ == "__main__":
 
 
 
-# TODO List
+
+# TODO
 # DONE Basic commands
 # DONE Fix Follower Cog
 # DONE Users joining

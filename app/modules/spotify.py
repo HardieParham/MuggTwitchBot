@@ -1,48 +1,38 @@
-# - - - - - Spotipy Imports - - - - - -
 import spotipy as sp
-from app.config import spotify_config
+
+from ..config.spotify_config import spotify_config
 from spotipy.oauth2 import SpotifyOAuth
 
 
-# - - - - - Applying Configuration Settings - - - - - 
-client_id = spotify_config.client_id
-client_secret = spotify_config.client_secret
-device_name = spotify_config.device_name
-redirect_uri = spotify_config.redirect_uri
-scope = spotify_config.scope
-username = spotify_config.username
+"""Applying Configuration Settings""" 
+device_name = spotify_config['DEVICE_NAME']
 auth_manager = SpotifyOAuth(
-    client_id = client_id,
-    client_secret = client_secret,
-    redirect_uri = redirect_uri,
-    scope = scope,
-    username = spotify_config.username)
+    client_id = spotify_config['CLIENT_ID'],
+    client_secret = spotify_config['CLIENT_SECRET'],
+    redirect_uri = spotify_config['REDIRECT_URI'],
+    scope = spotify_config['SCOPE'],
+    username = spotify_config['USERNAME'],
+    )
 
 
-# - - - - - Connecting to Spotify - - - - - 
-spotify = sp.Spotify(auth_manager = auth_manager)
-
-# - - - - - Finding Device Name - - - - - 
+"""Connecting to Spotify and finding playing device"""
+spotify = sp.Spotify(auth_manager = auth_manager) 
 devices = spotify.devices()
 deviceID=[]
 for d in devices['devices']:
-    if d['name'] == spotify_config.device_name:
+    if d['name'] == device_name:
         deviceID = d['id']
         break
 
 
-# - - - - - Getting Track uri from search - - - - - 
-def get_track_uri(spotify: sp.Spotify, artist, track) -> str:
-    #query = str(format:"artist:%@ track:%@", artist , track)
+def get_track_uri(spotify: sp.Spotify, artist: str, track: str) -> str:
     query = f"artist: {artist} track: {track}"
     results = spotify.search(q=query, limit=1, type ="artist,track")
-    #print(results)
     track_uri = results["tracks"]["items"][0]["uri"]
     return track_uri
 
 
-# - - - - - Check if Spotify is connected - - - - - 
-def connect():
+def connect() -> bool | Exception:
     if spotify is not None:
         return True
     else:
@@ -50,8 +40,8 @@ def connect():
 
 
 
-# - - - - - Spotify Commands - - - - - 
-def play(artist, track):
+"""Spotify commands for the Command Bot"""
+def play(artist: str, track: str) -> None:
     tries = 0
     device_id = deviceID
     while tries < 5:
@@ -63,17 +53,17 @@ def play(artist, track):
     spotify.add_to_queue(uri, device_id=device_id)
 
 
-def skip():
+def skip() -> None:
     device_id = deviceID
     spotify.next_track(device_id=device_id)
 
 
-def previous():
+def previous() -> None:
     device_id = deviceID
     spotify.previous_track(device_id=device_id)
 
 
-def song():
+def song() -> str:
     current = spotify.currently_playing()
     artist_name = current['item']['album']['artists'][0]['name']
     song_name = current['item']['name']
@@ -81,13 +71,13 @@ def song():
     return string
 
 
-def artist():
+def artist() -> str:
     current = spotify.currently_playing()
     artist_id = current['item']['album']['artists'][0]['id']
     artist = spotify.artist(artist_id)
     list = spotify.artist_top_tracks(artist_id)
 
-    def song(id):
+    def song(id: str) -> str:
         song = list['tracks'][int(id)]['name']
         return song
 
@@ -95,18 +85,17 @@ def artist():
     return text
 
 
-def song_link():
+def song_link() -> str:
     current = spotify.currently_playing()
     song_link = current['item']['external_urls']['spotify'] 
     return song_link
 
 
-def song_queue():
+def song_queue() -> str:
     list = spotify.queue()
     num = int(len(list['queue']))
-    print(num)
     
-    def track(id):
+    def track(id: str) -> str:
         artist = list['queue'][int(id)]['album']['artists'][0]['name']
         song = list['queue'][int(id)]['name']
         return f"{artist} - '{song}'"
@@ -133,11 +122,11 @@ def song_queue():
         return text
 
 
-def set_volume(num):
+def set_volume(num: int) -> None:
     spotify.volume(num)
 
 
-def sp_search(query):
+def sp_search(query: str) -> None:
     x = query.split("-")
     artist = x[0]
     song = x[1]

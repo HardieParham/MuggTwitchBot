@@ -1,22 +1,25 @@
 from twitchio.ext import commands
-from app.config import twitch_config
 
+from ..config.twitch_config import config
+
+
+"""Mod Cog for mod-only functions"""
 class Mod(commands.Cog):
-    def __init__(self, bot: commands.Bot):
+    def __init__(self, bot: commands.Bot) -> None:
         self.bot = bot,
-        self.token = twitch_config.BOT_TOKEN,
+        self.token = config['BOT_TOKEN'],
 
-    async def cog_check(self, ctx):
+    async def cog_check(self, ctx) -> bool | None:
         if ctx.message.author.is_mod == True:
             return True
         else:
             await ctx.send(f"Only Moderators can use this command.")
 
 
-    def prepare(bot: commands.Bot):
+    def prepare(bot: commands.Bot) -> None:
             bot.add_cog(Mod(bot))
 
 
     @commands.command(name = "modtest")
-    async def admintest(self, ctx):
+    async def admintest(self, ctx) -> None:
         await ctx.send("Hello Mod!")

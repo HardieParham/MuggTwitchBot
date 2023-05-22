@@ -136,3 +136,5 @@ spotify_config.py
 /logs/*.txt
 
 .VSCodeCounter/
+
+node_modules

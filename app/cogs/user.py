@@ -1,4 +1,5 @@
 import time
+import json
 
 from twitchio.ext import commands
 from twitchio import User
@@ -133,8 +134,6 @@ class User(commands.Cog):
     @commands.command(name = "specs", aliases=["pc"])
     async def specs(self, ctx) -> None:
         await ctx.send(f"CPU: Intel i7-8700.           GPU: MSI GTX 1060 6GB.               RAM: 32GB (4x8).            HDD: 4TB HHD, 2-256GB SSD")
-
-
 
 
     """ChatGuessr Commands"""

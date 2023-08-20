@@ -117,8 +117,7 @@ class User(commands.Cog):
     """General Commands"""
     @commands.command(name = "commands", aliases=["commandlist", "help", "idk"])
     async def commandlist(self, ctx) -> None:
-        keys = self.command_list.keys()
-        await ctx.send(keys - "dict_keys")
+        await ctx.send(f"http://www.hardieparham.com/commands")
 
 
     @commands.command(name = "lurk")
